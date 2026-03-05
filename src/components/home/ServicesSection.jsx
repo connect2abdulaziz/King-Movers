@@ -19,7 +19,7 @@ const services = [
   {
     id: 4,
     title: "Vehicle Transportation",
-    img: "images/Truck-4.JPG",
+    img: "images/Truck-4.jpg",
   },
   {
     id: 5,
