@@ -55,7 +55,7 @@ export default function AboutSection() {
           <div className="relative order-1 lg:order-2 max-w-md mx-auto w-full">
             <div className="rounded-2xl overflow-hidden bg-muted-foreground/10" style={{ aspectRatio: "4/3" }}>
               <img
-                src="/images/Truck 5.JPG"
+                src="/images/Truck-5.jpg"
                 alt="Logistics worker in yellow jacket"
                 className="w-full h-full object-cover object-top"
               />
