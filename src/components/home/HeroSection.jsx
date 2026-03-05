@@ -6,7 +6,7 @@ const CTA_LABEL = "Get Your Free Estimate Today";
 export default function HeroSection() {
   return (
     <section className="grid grid-cols-1 lg:grid-cols-2 min-h-[calc(100vh-88px)]">
-      <div className="bg-background flex flex-col justify-center px-8 md:px-12 lg:px-16 py-16 lg:py-20">
+      <div className="bg-background flex flex-col justify-center  px-8 md:px-12 lg:px-16 py-16 lg:py-20">
         <h1
           className="font-serif text-foreground font-black leading-[1.1] mb-7"
           style={{
@@ -16,18 +16,13 @@ export default function HeroSection() {
         >
           Trusted Seattle
           <br />
-          Moving Company
-          <br />
-          for Families,
-          <br />
-          Apartments
+          Moving for Families
           <br />
           &amp; Businesses
         </h1>
 
-        <p className="text-muted-foreground text-base leading-relaxed max-w-[400px] mb-10">
-          King Moving Services makes relocating simple with stress-free,
-          affordable, and reliable moving services across Seattle and beyond.
+        <p className="text-muted-foreground text-base leading-relaxed max-w-[380px] mb-10">
+          Stress-free, affordable moves across Seattle and beyond.
         </p>
 
         <a

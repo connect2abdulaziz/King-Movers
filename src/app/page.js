@@ -16,7 +16,7 @@ export default function Home() {
       {/* <ScrollingTextMarquee /> */}
       <TestimonialsSectionNew />
       <ThreeStepsSection />
-      <FaqSection />
+      {/* <FaqSection /> */}
       <CtaSection />
     </main>
   );

@@ -30,10 +30,10 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 shrink-0 bg-background border-b border-foreground/8">
       <nav
-        className="min-h-[88px] flex items-center px-6 md:px-10"
+        className="min-h-[88px] flex items-center"
         aria-label="Main navigation"
       >
-        <div className="w-full max-w-7xl mx-auto flex items-center justify-between gap-6">
+        <div className="w-full mx-auto px-8 md:px-12 lg:px-16 flex items-center justify-between gap-6">
           <Link href="/" className="shrink-0">
             <Image
               src="/images/logo.webp"
