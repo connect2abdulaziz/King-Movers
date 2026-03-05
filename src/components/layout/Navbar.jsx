@@ -2,80 +2,71 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 
-export default function Navbar() {
-  const pathname = usePathname();
-  const isHome = pathname === "/";
-  const isServices = pathname === "/services";
+const NAV_LINKS = [
+  { label: "Home", href: "/" },
+  { label: "About Us", href: "/#about" },
+  { label: "Services", href: "/services" },
+  { label: "Our Process", href: "/#process" },
+];
 
+const PHONE_NUMBER = "(555) 555-1234";
+const PHONE_HREF = "tel:+12345678900";
+
+function PhoneIcon() {
   return (
-    <header className="w-full py-5">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-3">
-          <div className="relative w-auto">
-            <Image
-              src="/images/logo.webp"
-              alt="Kings Moving Services logo"
-              width={130}
-              height={70}
-              className="w-auto object-contain"
-              priority
-            />
-          </div>
-        </Link>
-
-        {/* Nav Links */}
-        <nav className="mb-5 mr-2 hidden items-center gap-6 rounded-full bg-surface px-6 py-2 text-sm md:flex">
-          <Link
-            href="/"
-            className={`rounded-full px-4 py-1 ${
-              isHome ? "bg-primary text-white" : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            Home
-          </Link>
-          <Link
-            href="/#about"
-            className="text-muted-foreground hover:text-foreground"
-          >
-            About Us
-          </Link>
-          <Link
-            href="/services"
-            className={`rounded-full px-4 py-1 ${
-              isServices ? "bg-primary text-white" : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            Services
-          </Link>
-          <Link
-            href="/#team"
-            className="text-muted-foreground hover:text-foreground"
-          >
-            Our Team
-          </Link>
-          <Link
-            href="/#blog"
-            className="text-muted-foreground hover:text-foreground"
-          >
-            Blog
-          </Link>
-          <Link
-            href="/#faq"
-            className="text-muted-foreground hover:text-foreground"
-          >
-            FAQ
-          </Link>
-        </nav>
-
-        {/* CTA */}
-        <button className="hidden mb-5 rounded-full border border-primary px-6 py-2 text-sm font-medium text-primary hover:bg-primary hover:text-white transition-colors md:inline-flex">
-          Contact Us
-        </button>
-      </div>
-    </header>
+    <svg
+      viewBox="0 0 24 24"
+      className="w-4 h-4 shrink-0"
+      fill="currentColor"
+      aria-hidden
+    >
+      <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z" />
+    </svg>
   );
 }
 
+export default function Navbar() {
+  return (
+    <header className="sticky top-0 z-50 shrink-0 bg-background border-b border-foreground/8">
+      <nav
+        className="min-h-[88px] flex items-center px-6 md:px-10"
+        aria-label="Main navigation"
+      >
+        <div className="w-full max-w-7xl mx-auto flex items-center justify-between gap-6">
+          <Link href="/" className="shrink-0">
+            <Image
+              src="/images/logo.webp"
+              alt="King Moving Services"
+              width={150}
+              height={78}
+              className="h-12 w-auto object-contain md:h-14"
+              priority
+            />
+          </Link>
+
+          <ul className="hidden md:flex items-center gap-8 list-none m-0 p-0">
+            {NAV_LINKS.map(({ label, href }) => (
+              <li key={label}>
+                <Link
+                  href={href}
+                  className="text-foreground/75 text-base font-normal no-underline hover:text-primary transition-colors"
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <a
+            href={PHONE_HREF}
+            className="flex items-center gap-2.5 border border-accent/60 rounded-full px-5 py-2.5 text-foreground text-base font-medium no-underline hover:border-accent hover:bg-accent/5 transition-all"
+          >
+            <PhoneIcon />
+            {PHONE_NUMBER}
+          </a>
+        </div>
+      </nav>
+    </header>
+  );
+}
