@@ -49,10 +49,13 @@ export default function AboutSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="w-full bg-gray-300 py-16 px-6 md:px-16">
+    <section
+      ref={sectionRef}
+      className="w-full bg-linear-to-b from-[#1b102b] via-[#140b22] to-[#0b0715] py-16 px-6 md:px-16"
+    >
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12">
         {/* LEFT: Stacked Images */}
-        <div ref={imagesRef} className="relative w-full md:w-[45%] h-[480px] flex-shrink-0">
+        <div ref={imagesRef} className="relative w-full md:w-[45%] h-[480px] shrink-0">
           {/* Corner bracket top-left - primary */}
           <div className="absolute top-0 left-0 w-10 h-10 border-t-4 border-l-4 border-primary z-10" />
 
@@ -89,22 +92,29 @@ export default function AboutSection() {
         {/* RIGHT: Content */}
         <div className="w-full md:w-[55%]">
           {/* Tag */}
-          <p ref={tagRef} className="text-primary font-semibold text-sm mb-3 tracking-wide">
+          <p
+            ref={tagRef}
+            className="inline-flex items-center rounded-full bg-primary px-4 py-1 text-xs font-semibold tracking-wide text-accent mb-4"
+          >
             About King Moving
           </p>
 
           {/* Heading */}
-          <h2 ref={headingRef} className="font-serif text-4xl md:text-5xl font-extrabold text-foreground leading-tight mb-5">
-            Trusted Moving &amp; <br /> Logistics for Seattle
+          <h2 ref={headingRef} className="font-serif text-4xl md:text-5xl font-extrabold text-white leading-tight mb-5">
+            Trusted Moving &amp; <br />
+            Logistics for{" "}
+            <span className="inline-block rounded-sm bg-accent px-2.5 py-0.5 text-primary">
+              Your Move
+            </span>
           </h2>
 
           {/* Description — traditional about copy */}
-          <div ref={descRef} className="text-zinc-600 text-base leading-relaxed max-w-xl space-y-5 mb-8">
+          <div ref={descRef} className="text-white/80 text-base leading-relaxed max-w-xl space-y-5 mb-8">
             <p>
-              King Moving Services has been helping families and businesses in Seattle and the Pacific Northwest with stress-free moves for years. We handle everything from local apartment moves to full-house relocations, office moves, and long-distance and international moves. Our team is trained, insured, and focused on treating your belongings with care from the first box to the final walkthrough.
+              King Moving Services has been helping families and businesses move with confidence for years. We handle everything from local apartment moves to full-house relocations, office moves, and long-distance and international moves. Our team is trained, insured, and focused on treating your belongings with care from the first box to the final walkthrough.
             </p>
             <p>
-              Whether you need packing help, a dedicated crew, or a full-service move, we work with you to plan the move and stick to transparent pricing. We are proud to be a trusted name for residential and commercial moving in the Seattle area and beyond. Get in touch for a free estimate and see why so many choose King Moving.
+              Whether you need packing help, a dedicated crew, or a full-service move, we work with you to plan every detail and stick to transparent pricing. We are proud to be a trusted name for residential and commercial moving. Get in touch for a free estimate and see why so many choose King Moving.
             </p>
           </div>
 
