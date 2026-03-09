@@ -90,3 +90,26 @@ body {
     transform: translateX(calc(100vw + 120%));
   }
 }
+
+@keyframes wiggle-horizontal {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-2px);
+  }
+  40% {
+    transform: translateX(2px);
+  }
+  60% {
+    transform: translateX(-2px);
+  }
+  80% {
+    transform: translateX(1px);
+  }
+}
+
+.animate-wiggle-horizontal {
+  animation: wiggle-horizontal 1.4s ease-in-out infinite;
+}

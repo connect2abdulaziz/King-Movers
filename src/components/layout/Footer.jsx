@@ -24,30 +24,61 @@ const moreLinks = [
 ];
 
 const socialLinks = [
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Twitter, href: "#", label: "X" },
-  { icon: Youtube, href: "#", label: "YouTube" },
+  {
+    icon: Instagram,
+    href: "#",
+    label: "Instagram",
+    bgColor: "bg-[#E1306C]",
+  },
+  {
+    icon: Twitter,
+    href: "#",
+    label: "X",
+    bgColor: "bg-[#1DA1F2]",
+  },
+  {
+    icon: Youtube,
+    href: "#",
+    label: "YouTube",
+    bgColor: "bg-[#FF0000]",
+  },
 ];
 
 export default function Footer() {
   return (
-    <footer className="relative bg-primary text-white">
+    <footer className="relative text-white bg-[#140b22]">
+      {/* Purple night gradient + subtle patterns */}
       <div
-        className="pointer-events-none absolute inset-0 bg-black/25"
+        className="pointer-events-none absolute inset-0"
         aria-hidden
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 80% at 0% 0%, rgba(86,26,140,0.6) 0%, transparent 55%), radial-gradient(ellipse 90% 90% at 100% 100%, rgba(86,26,140,0.4) 0%, transparent 60%), linear-gradient(180deg, #1b102b 0%, #140b22 55%, #0b0715 100%)",
+        }}
       />
-      <div className="relative z-10 mx-auto max-w-7xl px-6 py-12">
+      {/* Dot/grid pattern */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.06]"
+        aria-hidden
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.5) 1px, transparent 0), linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px)",
+          backgroundSize: "26px 26px, 56px 56px",
+          mixBlendMode: "soft-light",
+        }}
+      />
+      <div className="relative z-10 mx-auto max-w-[1440px] px-6 py-12">
         {/* Top section – columns */}
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-10">
           {/* Column 1: Social + Contact */}
           <div className="col-span-2 flex flex-col gap-6 md:col-span-1">
             <div className="flex gap-4">
-              {socialLinks.map(({ icon: Icon, href, label }) => (
+              {socialLinks.map(({ icon: Icon, href, label, bgColor }) => (
                 <a
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/40 text-white transition-colors hover:border-white hover:bg-white/10"
+                  className={`flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white shadow-lg shadow-black/30 transition-transform hover:scale-105 hover:border-white ${bgColor}`}
                 >
                   <Icon className="h-5 w-5" />
                 </a>
@@ -73,6 +104,21 @@ export default function Footer() {
                   Direct: 480-447-1200
                 </a>
               </p>
+              {/* Trust / quality badges */}
+              <div className="mt-3 flex flex-wrap gap-2">
+                <span className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/20 px-3 py-1 text-[11px] font-medium text-primary">
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                  Licensed &amp; Insured
+                </span>
+                <span className="inline-flex items-center gap-2 rounded-full border border-accent/50 bg-accent/20 px-3 py-1 text-[11px] font-medium text-accent">
+                  <span className="h-1.5 w-1.5 rounded-full bg-white" />
+                  7+ Years Experience
+                </span>
+                <span className="inline-flex items-center gap-2 rounded-full border border-primary/50 bg-primary/20 px-3 py-1 text-[11px] font-medium text-primary">
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                  10K+ Moves Completed
+                </span>
+              </div>
               <p className="text-xs text-white/75">
                 US DOT: 3226717 &nbsp;&nbsp; MC: 1010868
               </p>

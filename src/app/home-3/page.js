@@ -16,7 +16,7 @@ export const metadata = {
 
 export default function Home3Page() {
   return (
-    <main>
+    <main className="overflow-hidden">
       <HeroSection />
       <HeroQuoteBar />
       <FeaturesSection />

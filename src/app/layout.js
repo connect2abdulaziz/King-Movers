@@ -2,6 +2,7 @@ import { Plus_Jakarta_Sans, Open_Sans, Work_Sans, Roboto } from "next/font/googl
 import "./globals.css";
 import NavbarWrapper from "../components/layout/NavbarWrapper";
 import Footer from "../components/layout/Footer";
+import FloatingStickyButtons from "../components/layout/FloatingStickyButtons";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -38,6 +39,7 @@ export default function RootLayout({ children }) {
         <NavbarWrapper />
         <main>{children}</main>
         <Footer />
+        <FloatingStickyButtons />
       </body>
     </html>
   );
