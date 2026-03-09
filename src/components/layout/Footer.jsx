@@ -54,17 +54,27 @@ export default function Footer() {
               ))}
             </div>
             <div className="space-y-2 text-sm text-white/90">
-              <p>123 Moving Ave</p>
-              <p>Your City, State</p>
+              <p>Kings Moving Services</p>
+              <p>6424 E. Greenway Pkwy, Suite 100</p>
+              <p>Scottsdale, AZ 85254</p>
+              <p>"Where You Are Treated Like Royalty"</p>
               <p>
-                <a href="mailto:info@kingsmoving.com" className="hover:underline">
-                  info@kingsmoving.com
+                <a href="mailto:info@kingsmovingservices.com" className="hover:underline">
+                  info@kingsmovingservices.com
                 </a>
               </p>
               <p>
-                <a href="tel:+12345678900" className="hover:underline">
-                  (+1) 234 567 8900
+                <a href="tel:+18889981004" className="hover:underline">
+                  Office: 888-998-1004 Ext. 101
                 </a>
+              </p>
+              <p>
+                <a href="tel:+14804471200" className="hover:underline">
+                  Direct: 480-447-1200
+                </a>
+              </p>
+              <p className="text-xs text-white/75">
+                US DOT: 3226717 &nbsp;&nbsp; MC: 1010868
               </p>
             </div>
           </div>

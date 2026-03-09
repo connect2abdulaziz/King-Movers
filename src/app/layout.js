@@ -1,6 +1,6 @@
-import { Plus_Jakarta_Sans, Open_Sans } from "next/font/google";
+import { Plus_Jakarta_Sans, Open_Sans, Work_Sans, Roboto } from "next/font/google";
 import "./globals.css";
-import Navbar from "../components/layout/Navbar";
+import NavbarWrapper from "../components/layout/NavbarWrapper";
 import Footer from "../components/layout/Footer";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -13,6 +13,17 @@ const openSans = Open_Sans({
   variable: "--font-body",
 });
 
+const workSans = Work_Sans({
+  subsets: ["latin"],
+  variable: "--font-hero-heading",
+});
+
+const roboto = Roboto({
+  weight: ["400", "500", "700"],
+  subsets: ["latin"],
+  variable: "--font-hero-body",
+});
+
 export const metadata = {
   title: "King Moving Services",
   description: "Professional moving services website",
@@ -22,9 +33,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${plusJakarta.variable} ${openSans.variable} antialiased bg-background text-foreground`}
+        className={`${plusJakarta.variable} ${openSans.variable} ${workSans.variable} ${roboto.variable} antialiased bg-background text-foreground`}
       >
-        <Navbar />
+        <NavbarWrapper />
         <main>{children}</main>
         <Footer />
       </body>

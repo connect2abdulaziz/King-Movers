@@ -9,7 +9,7 @@
 
   /* Brand accents */
   --primary: #561a8c; /* brand purple */
-  --accent: #ff6f59; /* action orange */
+  --accent: #FEC34D; /* accent yellow – pairs with primary purple */
 }
 
 @theme inline {
@@ -30,11 +30,63 @@ body {
   color: var(--foreground);
 }
 
+/* Hero 2 & 3: Work Sans (headers) + Roboto (body) */
+.font-hero-heading {
+  font-family: var(--font-hero-heading), sans-serif;
+}
+.font-hero-body {
+  font-family: var(--font-hero-body), sans-serif;
+}
+
 @keyframes marquee {
   0% {
     transform: translateX(0);
   }
   100% {
     transform: translateX(-50%);
+  }
+}
+
+@keyframes trustBadgesScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Hero slider pagination - small dots at bottom */
+.hero-slider-wrapper .swiper-pagination {
+  bottom: 1.5rem !important;
+  left: 50% !important;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+.hero-slider-wrapper .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 1;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.hero-slider-wrapper .swiper-pagination-bullet:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+.hero-slider-wrapper .swiper-pagination-bullet-active {
+  background: white;
+  transform: scale(1.2);
+}
+
+/* Hero truck animation - moves left to right at bottom */
+@keyframes heroTruckMove {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(calc(100vw + 120%));
   }
 }

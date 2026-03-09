@@ -36,10 +36,7 @@ export default function ScrollingTextMarquee() {
 function ScrollingItem() {
   return (
     <div className="flex items-center whitespace-nowrap">
-      <span
-        className="font-serif text-[48px] sm:text-[72px] md:text-[96px] lg:text-[120px] font-extrabold uppercase tracking-tight mr-12 text-transparent transition-colors duration-500 group-hover:text-primary"
-        style={{ WebkitTextStroke: "2px var(--foreground)" }}
-      >
+      <span className="font-serif text-[48px] sm:text-[72px] md:text-[96px] lg:text-[120px] font-extrabold uppercase tracking-tight mr-12 text-foreground transition-colors duration-500 group-hover:text-primary">
         Trusted Moving
       </span>
       <Sparkles
