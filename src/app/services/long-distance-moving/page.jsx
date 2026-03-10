@@ -221,7 +221,7 @@ export default function LongDistanceMovingPage() {
               href="tel:18005551234"
               className="inline-block px-8 py-4 text-lg font-semibold rounded-lg border-2 border-white text-white hover:bg-white/10 transition-colors font-sans"
             >
-              📞 1-800-555-1234
+              📞 480-447-1200
             </a>
           </div>
         </div>
@@ -506,7 +506,7 @@ export default function LongDistanceMovingPage() {
               href="tel:18005551234"
               className="inline-block px-10 py-4 text-lg font-bold border-2 border-white text-white rounded-lg font-sans hover:bg-white/10 transition-colors"
             >
-              📞 Call 1-800-555-1234
+              📞 Call 480-447-1200
             </a>
           </div>
           <p className="text-white/70 mt-6 text-sm font-sans">
