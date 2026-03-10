@@ -4,6 +4,10 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
 import TestimonialsSectionHome2 from "@/components/home/TestimonialsSectionHome2";
 import HeroQuoteBar from "@/components/home3/HeroQuoteBar";
 
@@ -125,8 +129,17 @@ const steps = [
   },
 ];
 
+// Placeholder gallery images for commercial move detail page.
+// Replace src paths with your own images.
+const COMMERCIAL_GALLERY = [
+  { src: "/images/Padded_ Blanketed-and-shrink-wrapped-professionally.jpg", alt: "Commercial move photo 1" },
+  { src: "/images/Ready-to-load.jpg", alt: "Commercial move photo 2" },
+  { src: "/images/international-move2.jpg", alt: "Commercial move photo 3" },
+];
+
 export default function CommercialMovePage() {
   const [openFaq, setOpenFaq] = useState(null);
+  const pageRef = useRef(null);
   const heroSectionRef = useRef(null);
   const heroBgRef = useRef(null);
   const heroContentRef = useRef(null);
@@ -169,8 +182,81 @@ export default function CommercialMovePage() {
     return () => ctx.revert();
   }, []);
 
+  useEffect(() => {
+    const root = pageRef.current;
+    if (!root) return;
+
+    const reduceMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
+    const ctx = gsap.context(() => {
+      const sections = gsap.utils.toArray("[data-anim-section]");
+      const images = gsap.utils.toArray("[data-anim-image]");
+
+      // Initial states (dramatic, but readable — no blur)
+      gsap.set(sections, {
+        opacity: 0,
+        y: 42,
+        scale: 0.992,
+      });
+
+      sections.forEach((sectionEl) => {
+        const items = sectionEl.querySelectorAll("[data-anim-item]");
+
+        gsap.set(items, {
+          opacity: 0,
+          y: 18,
+          scale: 0.985,
+        });
+
+        if (reduceMotion) {
+          gsap.set(sectionEl, { opacity: 1, y: 0, scale: 1 });
+          gsap.set(items, { opacity: 1, y: 0, scale: 1 });
+          return;
+        }
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionEl,
+            start: "top 78%",
+            toggleActions: "play none none none",
+          },
+          defaults: { ease: "power4.out" },
+        });
+
+        tl.to(sectionEl, { opacity: 1, y: 0, scale: 1, duration: 0.9 }, 0).to(
+          items,
+          { opacity: 1, y: 0, scale: 1, duration: 0.85, stagger: 0.06 },
+          0.25
+        );
+      });
+
+      // Subtle parallax on sticky images for extra “alive” feel
+      images.forEach((imgWrap) => {
+        if (reduceMotion) return;
+        gsap.fromTo(
+          imgWrap,
+          { y: -10 },
+          {
+            y: 18,
+            ease: "none",
+            scrollTrigger: {
+              trigger: imgWrap,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.1,
+            },
+          }
+        );
+      });
+    }, root);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <div className="bg-background text-foreground font-sans min-h-screen">
+    <div ref={pageRef} className="bg-background text-foreground font-sans min-h-screen overflow-hidden" style={{ transformStyle: "flat" }}>
 
       {/* ── HERO: background image + overlay + scroll zoom ───────────────── */}
       <section
@@ -234,44 +320,44 @@ export default function CommercialMovePage() {
       <div className="mx-auto max-w-6xl px-6 py-14">
 
         {/* SECTION 1: Intro — Image Left (sticky) + Text Right */}
-        <div className="flex flex-col lg:flex-row gap-12 items-start mb-20">
+        <div data-anim-section className="flex flex-col lg:flex-row gap-12 items-start mb-20">
           {/* Left image — sticky while text scrolls */}
-          <div className="w-full lg:w-5/12 flex-shrink-0 lg:sticky lg:top-24 lg:self-start">
-            <div className="w-full rounded-lg overflow-hidden aspect-4/3 bg-surface">
+          <div className="w-full lg:w-5/12 shrink-0 lg:sticky lg:top-24 lg:self-start">
+            <div data-anim-image className="w-full rounded-lg overflow-hidden aspect-4/3 bg-surface">
               <img
-                src="/images/0.jpg"
+                src="/images/service.jpg"
                 alt="Commercial office movers at work"
                 className="w-full h-full object-cover"
               />
             </div>
-            <p className="text-sm text-muted-foreground mt-2 italic text-center font-sans">
+            <p data-anim-item className="text-sm text-muted-foreground mt-2 italic text-center font-sans">
               Our teams handle office and commercial moves with minimal downtime.
             </p>
           </div>
 
           {/* Right text */}
           <div className="w-full lg:w-7/12">
-            <span className="inline-block text-xs font-bold uppercase tracking-widest px-3 py-1 mb-4 font-sans bg-primary/10 text-primary border-l-4 border-primary rounded-r">
+            <span data-anim-item className="inline-block text-xs font-bold uppercase tracking-widest px-3 py-1 mb-4 font-sans bg-primary/10 text-primary border-l-4 border-primary rounded-r">
               Commercial Moving
             </span>
-            <h2 className="font-serif text-4xl font-bold leading-tight mb-5 text-foreground">
+            <h2 data-anim-item className="font-serif text-4xl font-bold leading-tight mb-5 text-foreground">
               Office Relocation Without the Headaches
             </h2>
-            <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+            <p data-anim-item className="text-lg text-muted-foreground leading-relaxed mb-4">
               Moving your office or business is a major undertaking. Downtime costs money, and your team needs to get back
               to work quickly. That's why we built our commercial moving service around one core promise: <strong>minimal
               disruption and a smooth, predictable move from start to finish.</strong>
             </p>
-            <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+            <p data-anim-item className="text-lg text-muted-foreground leading-relaxed mb-4">
               We plan every office move in detail. We work after hours or on weekends when needed, coordinate with your
               IT and facilities teams, and use experienced crews who know how to handle desks, workstations, and sensitive
               equipment. From the first survey to final setup, you have a single point of contact.
             </p>
-            <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+            <p data-anim-item className="text-lg text-muted-foreground leading-relaxed mb-4">
               We've relocated offices of all sizes — from small suites to multi-floor moves. In that time, we've refined
               our process so your move stays on schedule, on budget, and with minimal impact on your operations.
             </p>
-            <p className="text-lg text-muted-foreground leading-relaxed">
+            <p data-anim-item className="text-lg text-muted-foreground leading-relaxed">
               Whether you're expanding, consolidating, or moving to a better location, our team is here to make the
               transition as smooth as possible. <strong>You focus on running your business — we'll handle the move.</strong>
             </p>
@@ -279,11 +365,11 @@ export default function CommercialMovePage() {
         </div>
 
         {/* ── WHAT'S INCLUDED ─────────────────────────────────────── */}
-        <div className="rounded-2xl p-10 mb-20 bg-surface border-2 border-foreground/10">
-          <h2 className="font-serif text-3xl font-bold mb-2 text-foreground">
+        <div data-anim-section className="rounded-2xl p-10 mb-20 bg-surface border-2 border-foreground/10">
+          <h2 data-anim-item className="font-serif text-3xl font-bold mb-2 text-foreground">
             What's Included in Our Commercial Moving Service
           </h2>
-          <p className="text-muted-foreground mb-8 text-lg font-sans">
+          <p data-anim-item className="text-muted-foreground mb-8 text-lg font-sans">
             Every commercial move includes the following as standard — no hidden add-ons, no surprise charges.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -297,8 +383,8 @@ export default function CommercialMovePage() {
               ["Phased Move Options", "For larger offices, we can move in phases by department or floor to fit your timeline."],
               ["Secure Handling of Files & Assets", "Filing cabinets, sensitive documents, and office assets are handled with care and confidentiality."],
             ].map(([title, desc]) => (
-              <div key={title} className="flex gap-4 items-start">
-                <div className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold font-sans bg-primary mt-0.5">
+              <div data-anim-item key={title} className="flex gap-4 items-start">
+                <div className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold font-sans bg-primary mt-0.5">
                   ✓
                 </div>
                 <div>
@@ -311,10 +397,10 @@ export default function CommercialMovePage() {
         </div>
 
         {/* ── HOW IT WORKS ────────────────────────────────────────── */}
-        <div className="mb-20">
+        <div data-anim-section className="mb-20">
           <div className="text-center mb-10">
-            <h2 className="font-serif text-4xl font-bold text-foreground">How Our Commercial Moving Process Works</h2>
-            <p className="text-muted-foreground mt-3 text-lg font-sans max-w-2xl mx-auto">
+            <h2 data-anim-item className="font-serif text-4xl font-bold text-foreground">How Our Commercial Moving Process Works</h2>
+            <p data-anim-item className="text-muted-foreground mt-3 text-lg font-sans max-w-2xl mx-auto">
               A clear, structured process so you always know what to expect — and when.
             </p>
           </div>
@@ -322,9 +408,10 @@ export default function CommercialMovePage() {
             {steps.map((step) => (
               <div
                 key={step.num}
+                data-anim-item
                 className="flex flex-col md:flex-row gap-6 items-start md:items-center border-l-4 border-primary pl-6 pb-8"
               >
-                <div className="flex-shrink-0 w-16 h-16 rounded flex items-center justify-center font-extrabold text-xl font-sans bg-primary text-white min-w-[64px]">
+                <div className="shrink-0 w-16 h-16 rounded flex items-center justify-center font-extrabold text-xl font-sans bg-primary text-white min-w-[64px]">
                   {step.num}
                 </div>
                 <div>
@@ -336,41 +423,86 @@ export default function CommercialMovePage() {
           </div>
         </div>
 
+        {/* ── GALLERY CAROUSEL ─────────────────────────────────────── */}
+        <section
+          data-anim-section
+          className="mb-20"
+          aria-label="Commercial moving gallery"
+        >
+          <div className="text-center mb-8">
+            <h2 data-anim-item className="font-serif text-3xl font-bold text-foreground">
+              Commercial Moving Gallery
+            </h2>
+            <p
+              data-anim-item
+              className="text-muted-foreground mt-3 text-base md:text-lg font-sans max-w-2xl mx-auto"
+            >
+              Image placeholders are used here. Replace these with real photos of your office and commercial
+              relocations to highlight your crews, equipment, and finished setups.
+            </p>
+          </div>
+          <div data-anim-item className="relative overflow-hidden">
+            <Swiper
+              modules={[Navigation]}
+              navigation
+              spaceBetween={16}
+              slidesPerView={1.1}
+              breakpoints={{
+                768: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+              }}
+              className="pb-10!"
+            >
+              {COMMERCIAL_GALLERY.map((img, index) => (
+                <SwiperSlide key={index}>
+                  <div className="h-56 sm:h-64 md:h-72 rounded-2xl overflow-hidden bg-surface border border-foreground/10">
+                    <img
+                      src={img.src}
+                      alt={img.alt}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </section>
+
         {/* ── IMAGE + TEXT BLOCK 2 — Image Right (sticky) + Text Left ── */}
-        <div className="flex flex-col lg:flex-row-reverse gap-12 items-start mb-20">
+        <div data-anim-section className="flex flex-col lg:flex-row-reverse gap-12 items-start mb-20">
           {/* Right image — sticky while text scrolls */}
-          <div className="w-full lg:w-5/12 flex-shrink-0 lg:sticky lg:top-24 lg:self-start">
-            <div className="w-full rounded-lg overflow-hidden aspect-4/3 bg-surface">
+          <div className="w-full lg:w-5/12 shrink-0 lg:sticky lg:top-24 lg:self-start">
+            <div data-anim-image className="w-full rounded-lg overflow-hidden aspect-4/3 bg-surface">
               <img
-                src="/images/international-move.jpg"
+                src="/images/truck-stack-kings.png"
                 alt="Commercial movers handling office equipment"
                 className="w-full h-full object-cover"
               />
             </div>
-            <p className="text-sm text-muted-foreground mt-2 italic text-center font-sans">
+            <p data-anim-item className="text-sm text-muted-foreground mt-2 italic text-center font-sans">
               Our packing team treats every item as if it were their own.
             </p>
           </div>
           <div className="w-full lg:w-7/12">
-            <h2 className="font-serif text-4xl font-bold leading-tight mb-5 text-foreground">
+            <h2 data-anim-item className="font-serif text-4xl font-bold leading-tight mb-5 text-foreground">
               The Difference Between a Good Move and a Great One Is Preparation
             </h2>
-            <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+            <p data-anim-item className="text-lg text-muted-foreground leading-relaxed mb-4">
               Most moving horror stories share a common cause: poor preparation. Boxes that weren't reinforced. Furniture
               that wasn't properly wrapped. A truck that was overloaded. A delivery window that was missed. These aren't
               accidents — they're the result of cutting corners, and they're completely avoidable.
             </p>
-            <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+            <p data-anim-item className="text-lg text-muted-foreground leading-relaxed mb-4">
               Our moving teams follow a strict packing and loading protocol developed over years of office moves. Every
               item is inventoried and labeled. Furniture is disassembled and wrapped before loading. When we arrive at
               your new space, we check each item against the inventory and set up according to your plan.
             </p>
-            <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+            <p data-anim-item className="text-lg text-muted-foreground leading-relaxed mb-4">
               We also invest heavily in our equipment. Our trucks feature air-ride suspension — a suspension system
               that dramatically reduces road vibration and is especially important for fragile items like electronics,
               mirrors, and fine art. Our straps, pads, and dollies are inspected and replaced on a regular schedule.
             </p>
-            <p className="text-lg text-muted-foreground leading-relaxed">
+            <p data-anim-item className="text-lg text-muted-foreground leading-relaxed">
               The result? A move-day experience that feels surprisingly calm, and a delivery that feels like a relief
               instead of a reckoning.
             </p>
@@ -378,10 +510,10 @@ export default function CommercialMovePage() {
         </div>
 
         {/* ── WHY CHOOSE US ────────────────────────────────────────── */}
-        <div className="mb-20">
+        <div data-anim-section className="mb-20">
           <div className="text-center mb-10">
-            <h2 className="font-serif text-4xl font-bold text-foreground">Why Businesses Choose Us for Commercial Moves</h2>
-            <p className="text-muted-foreground mt-3 text-lg font-sans max-w-2xl mx-auto">
+            <h2 data-anim-item className="font-serif text-4xl font-bold text-foreground">Why Businesses Choose Us for Commercial Moves</h2>
+            <p data-anim-item className="text-muted-foreground mt-3 text-lg font-sans max-w-2xl mx-auto">
               We're not the cheapest option — we're the most dependable one. Here's what sets us apart.
             </p>
           </div>
@@ -389,6 +521,7 @@ export default function CommercialMovePage() {
             {whyUs.map(({ Icon, title, desc }) => (
               <div
                 key={title}
+                data-anim-item
                 className="p-7 rounded-2xl border-2 border-foreground/10 bg-background flex flex-col"
               >
                 <div className="mb-4">
@@ -402,9 +535,9 @@ export default function CommercialMovePage() {
         </div>
 
         {/* ── TYPES WE COVER ───────────────────────────────────────── */}
-        <div className="rounded-2xl p-10 mb-20 bg-primary text-white">
-          <h2 className="font-serif text-3xl font-bold mb-3">We Relocate Businesses of All Sizes</h2>
-          <p className="text-white/80 mb-8 text-lg font-sans">
+        <div data-anim-section className="rounded-2xl p-10 mb-20 bg-primary text-white">
+          <h2 data-anim-item className="font-serif text-3xl font-bold mb-3">We Relocate Businesses of All Sizes</h2>
+          <p data-anim-item className="text-white/80 mb-8 text-lg font-sans">
             Our commercial moving service covers offices, retail spaces, and businesses of every size. We routinely handle:
           </p>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 font-sans">
@@ -424,24 +557,25 @@ export default function CommercialMovePage() {
             ].map((item) => (
               <div
                 key={item}
+                data-anim-item
                 className="px-4 py-3 rounded-lg text-sm font-semibold bg-white/10 border border-white/20"
               >
                 ✓ {item}
               </div>
             ))}
           </div>
-          <p className="text-white/70 mt-6 font-sans text-sm">
+          <p data-anim-item className="text-white/70 mt-6 font-sans text-sm">
             Have a different type of business? We can help. Contact us for a custom quote.
           </p>
         </div>
 
         {/* ── FAQ ──────────────────────────────────────────────────── */}
-        <div className="mb-20">
+        <div data-anim-section className="mb-20">
           <div className="text-center mb-10">
-            <h2 className="font-serif text-4xl font-bold text-foreground">
+            <h2 data-anim-item className="font-serif text-4xl font-bold text-foreground">
               Frequently Asked Questions About Commercial Moving
             </h2>
-            <p className="text-muted-foreground mt-3 text-lg font-sans max-w-2xl mx-auto">
+            <p data-anim-item className="text-muted-foreground mt-3 text-lg font-sans max-w-2xl mx-auto">
               Got questions? We've answered the most common ones below. If you don't find what you need, call us any time.
             </p>
           </div>
@@ -449,6 +583,7 @@ export default function CommercialMovePage() {
             {faqs.map((faq, i) => (
               <div
                 key={i}
+                data-anim-item
                 className="rounded-xl overflow-hidden border-2 border-foreground/10"
               >
                 <button
@@ -458,7 +593,7 @@ export default function CommercialMovePage() {
                   <span className="text-lg font-bold pr-4">
                     {faq.q}
                   </span>
-                  <span className="text-2xl flex-shrink-0 font-bold">
+                  <span className="text-2xl shrink-0 font-bold">
                     {openFaq === i ? "−" : "+"}
                   </span>
                 </button>
@@ -475,25 +610,26 @@ export default function CommercialMovePage() {
       </div>
 
       {/* ── TESTIMONIALS: full width ───────────────────────────────── */}
-      <section className="w-full" aria-label="Customer testimonials">
+      <section data-anim-section className="w-full" aria-label="Customer testimonials">
         <TestimonialsSectionHome2 />
       </section>
 
       {/* ── QUOTE CTA: full width, inner content centered ───────────── */}
       <section
         id="quote"
+        data-anim-section
         className="w-full bg-primary py-16 md:py-20"
         aria-label="Get a quote"
       >
         <div className="mx-auto max-w-3xl px-6 text-center">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 data-anim-item className="font-serif text-3xl md:text-4xl font-bold text-white mb-4">
             Ready to Plan Your Commercial Move?
           </h2>
-          <p className="text-white/90 text-lg md:text-xl mb-8 font-sans leading-relaxed">
+          <p data-anim-item className="text-white/90 text-lg md:text-xl mb-8 font-sans leading-relaxed">
             Get a free, no-obligation binding estimate from our team. We'll walk you through every detail and give you a
             firm price — no guesswork, no surprises.
           </p>
-          <div className="flex flex-wrap gap-4 justify-center">
+          <div data-anim-item className="flex flex-wrap gap-4 justify-center">
             <Link
               href="/contact"
               className="inline-block px-10 py-4 text-lg font-bold rounded-lg font-sans bg-accent text-foreground hover:opacity-90 transition-opacity"
@@ -507,7 +643,7 @@ export default function CommercialMovePage() {
               📞 Call 480-447-1200
             </a>
           </div>
-          <p className="text-white/70 mt-6 text-sm font-sans">
+          <p data-anim-item className="text-white/70 mt-6 text-sm font-sans">
             Available Monday–Saturday, 8AM–8PM · No pressure, no obligation
           </p>
         </div>

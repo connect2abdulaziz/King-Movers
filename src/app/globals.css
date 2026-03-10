@@ -12,6 +12,11 @@
   --accent: #FEC34D; /* accent yellow – pairs with primary purple */
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

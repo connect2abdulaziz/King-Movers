@@ -34,7 +34,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${plusJakarta.variable} ${openSans.variable} ${workSans.variable} ${roboto.variable} antialiased bg-background text-foreground`}
+        className={`${plusJakarta.variable} ${openSans.variable} ${workSans.variable} ${roboto.variable} antialiased bg-background text-foreground overflow-x-hidden`}
       >
         <NavbarWrapper />
         <main>{children}</main>
