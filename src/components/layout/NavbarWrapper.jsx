@@ -13,5 +13,5 @@ export default function NavbarWrapper() {
     return <NavbarHome2 />;
   }
 
-  return <Navbar />;
+  return <NavbarHome2 />;
 }

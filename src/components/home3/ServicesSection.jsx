@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -9,6 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 const services = [
   {
     title: "Long Distance",
+    slug: "long-distance-moving",
     image: "/images/service-4.jpg",
     imageAlt: "Long distance moving",
     description:
@@ -23,6 +25,7 @@ const services = [
   },
   {
     title: "Local Moving",
+    slug: "local-move",
     image: "/images/service-1.jpg",
     imageAlt: "Local moving services",
     description:
@@ -36,6 +39,7 @@ const services = [
   },
   {
     title: "Commercial Moves",
+    slug: "commercial-move",
     image: "/images/service.jpg",
     imageAlt: "Commercial and office moving",
     description:
@@ -199,14 +203,18 @@ export default function ServicesSection() {
           King Movers <span className="text-primary">Moving Services</span>
         </h2>
 
-        {/* Cards grid */}
+        {/* Cards grid — each card links to service detail page */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
           {services.map((service, i) => (
-            <div
+            <Link
               key={i}
-              ref={(el) => (cardRefs.current[i] = el)}
-              className="group relative bg-[#151022] border border-white/8 rounded-[18px] overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_24px_60px_rgba(0,0,0,0.5)] hover:shadow-primary/25"
+              href={`/services/${service.slug}`}
+              className="block no-underline"
             >
+              <div
+                ref={(el) => (cardRefs.current[i] = el)}
+                className="group relative bg-[#151022] border border-white/8 rounded-[18px] overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_24px_60px_rgba(0,0,0,0.5)] hover:shadow-primary/25"
+              >
               {/* Image */}
               <div className="relative h-[220px] overflow-hidden">
                 {/* wrapper is animated on scroll so hover-scale on img still works */}
@@ -243,7 +251,8 @@ export default function ServicesSection() {
 
               {/* Accent bar on hover */}
               <div className="absolute bottom-0 left-0 h-[3px] w-0 bg-primary rounded-b-[18px] transition-all duration-400 ease-out group-hover:w-full" />
-            </div>
+              </div>
+            </Link>
           ))}
         </div>
       </div>
