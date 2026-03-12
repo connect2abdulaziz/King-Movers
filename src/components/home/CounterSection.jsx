@@ -172,9 +172,8 @@ export default function CounterSection() {
             ref={headlineRef}
             className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] tracking-tight"
           >
-            Reliable &amp; Safe
-            <br />
-            <span className="text-accent">Transport Services</span>
+          Move With <span className="text-accent bg-primary px-3 py-1 rounded-md">Confidence</span>
+            
           </h2>
         </div>
 
@@ -183,8 +182,7 @@ export default function CounterSection() {
           ref={subtitleRef}
           className="text-center text-white/85 text-base md:text-lg max-w-2xl mx-auto mb-14 md:mb-16"
         >
-          Trusted by families and businesses across Seattle and beyond. We deliver
-          stress-free moves with care and professionalism every step of the way.
+          Our experienced team helps families and businesses move safely, efficiently, and with complete peace of mind.
         </p>
 
         {/* Counter cards — 4 columns, premium styling */}

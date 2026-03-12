@@ -557,11 +557,11 @@ export default function LongDistanceMovingPage() {
 
         {/* ── SERVICES WE COVER ────────────────────────────────────── */}
         <div data-anim-section className="rounded-2xl p-10 mb-20 bg-primary text-white">
-          <h2 data-anim-item className="font-serif text-3xl font-bold mb-3">We Move You Anywhere in the Country</h2>
-          <p data-anim-item className="text-white/80 mb-8 text-lg font-sans">
-            Our long distance moving service covers all 50 states. Some of our most common move corridors include:
+          <h2 data-anim-item className="font-serif text-3xl font-bold mb-3">We Move You <span className=" bg-white/10 px-2 py-1 rounded-md">  Anywhere </span> in the Country</h2>
+          <p data-anim-item className="text-white/80 text-lg font-sans">
+            Our long distance moving service covers all 50 states. 
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 font-sans">
+          {/* <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 font-sans">
             {[
               "New York → Florida",
               "California → Texas",
@@ -587,7 +587,7 @@ export default function LongDistanceMovingPage() {
           </div>
           <p data-anim-item className="text-white/70 mt-6 font-sans text-sm">
             Don't see your route? We move to and from all cities and states. Contact us for a custom quote.
-          </p>
+          </p> */}
         </div>
 
         {/* ── FAQ ──────────────────────────────────────────────────── */}

@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const CARDS = [
   {
-    title: "Home Shifting",
+    title: "Home Moving",
     description:
       "With our expert team and strong vehicle fleet, we provide economical and reliable local and residential moving services.",
     href: "/services/home-shifting",

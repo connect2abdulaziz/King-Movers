@@ -11,31 +11,24 @@ const COUNTER_ACCENT = "var(--accent)";
 
 const counters = [
   {
-    start: 5,
-    end: 7,
+    start: 8,
+    end: 10,
     suffix: "+",
     title: "Years of Experience",
     sub: "Trusted moving experience",
   },
   {
-    start: 8,
-    end: 10,
-    suffix: "K+",
+    start: 50,
+    end: 100,
+    suffix: "'s",
     title: "Moves Completed",
     sub: "Homes & businesses",
   },
   {
-    start: 3,
-    end: 5,
-    suffix: "K+",
+    start: 85,
+    end: 90,
+    suffix: "%+",
     title: "Happy Clients",
-    sub: "Trusted by families",
-  },
-  {
-    start: 95,
-    end: 98,
-    suffix: "%",
-    title: "Satisfaction Rate",
     sub: "We deliver on our promise",
   },
 ];
@@ -174,7 +167,7 @@ export default function CounterSection() {
       />
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 md:px-12">
-        <div ref={gridRef} className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+        <div ref={gridRef} className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-0">
           {counters.map((item, i) => (
             <div
               key={i}
