@@ -5,6 +5,7 @@ import ServicesPageContent from "@/components/services/ServicesPageContent";
 import OurWork from "@/components/home/OurWork";
 import WorkProcess from "@/components/home3/WorkProcess";
 import TrustBadgesSection from "@/components/home/TrustBadgesSection";
+import PageHeroSection from "@/components/ui/PageHeroSection";
 
 export const metadata = {
   title: "Services | King Moving Services",
@@ -15,7 +16,15 @@ export const metadata = {
 export default function ServicesPage() {
   return (
     <>
-    <ServiceHero/>
+    <PageHeroSection
+     badge="What We Offer"
+     title="Full-Service Moving"
+     highlight="Done Right"
+     description="Residential, commercial, packing, long-distance, and storage — one trusted team for every step of your move."
+     bgImage="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1600&q=85"
+     ctaText="Get a Free Quote"
+     ctaLink="/#quote"
+     />
     <HeroQuoteBar/>
     <TrustBadgesSection/>
     <ServicesSection/>
