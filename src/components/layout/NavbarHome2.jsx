@@ -9,13 +9,12 @@ import { Facebook, Linkedin, Mail, Phone } from "lucide-react";
 const SCROLL_THRESHOLD = 50;
 
 const NAV_LINKS = [
-  { label: "Home", href: "/home-2" },
-  { label: "About", href: "/#about" },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
-  { label: "Movers & Packers", href: "/services" },
-  { label: "Packing Guide", href: "/#packing" },
-  { label: "Contact", href: "/#contact" },
-  { label: "Blog", href: "/#blog" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Contact", href: "/contact-us" },
+  { label: "Blog", href: "/blog" },
 ];
 
 function HamburgerIcon() {

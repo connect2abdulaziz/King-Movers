@@ -1,4 +1,11 @@
-import { Plus_Jakarta_Sans, Open_Sans, Work_Sans, Roboto } from "next/font/google";
+import {
+  Plus_Jakarta_Sans,
+  Open_Sans,
+  Work_Sans,
+  Roboto,
+  Playfair_Display,
+  Libre_Baskerville,
+} from "next/font/google";
 import "./globals.css";
 import NavbarWrapper from "../components/layout/NavbarWrapper";
 import Footer from "../components/layout/Footer";
@@ -26,6 +33,20 @@ const roboto = Roboto({
   variable: "--font-hero-body",
 });
 
+const footerHeadingFont = Playfair_Display({
+  weight: ["400", "600", "700"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-footer-heading",
+});
+
+const footerBodyFont = Libre_Baskerville({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-footer-body",
+});
+
 export const metadata = {
   title: "King Moving Services",
   description: "Professional moving services website",
@@ -35,7 +56,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${plusJakarta.variable} ${openSans.variable} ${workSans.variable} ${roboto.variable} antialiased bg-background text-foreground overflow-x-hidden`}
+        className={`${plusJakarta.variable} ${openSans.variable} ${workSans.variable} ${roboto.variable} ${footerHeadingFont.variable} ${footerBodyFont.variable} antialiased bg-background text-foreground overflow-x-hidden`}
       >
         <NavbarWrapper />
         <main>{children}</main>
