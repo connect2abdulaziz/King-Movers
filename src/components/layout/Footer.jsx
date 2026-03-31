@@ -1,12 +1,6 @@
 import Link from "next/link";
 import { Instagram, Youtube, Twitter } from "lucide-react";
-
-const menuLinks = [
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Contact", href: "#contact" },
-  { label: "FAQ", href: "#faq" },
-];
+import { CONTACT_INFO } from "@/components/contact-us/contactData";
 
 const serviceLinks = [
   { label: "Residential", href: "#services" },
@@ -16,11 +10,17 @@ const serviceLinks = [
   { label: "Storage", href: "#services" },
 ];
 
-const moreLinks = [
-  { label: "Blog", href: "#" },
-  { label: "Contact", href: "#contact" },
-  { label: "Terms", href: "#" },
-  { label: "Privacy", href: "#" },
+const aboutLinks = [
+  { label: "About Us", href: "/about" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Blog", href: "/blog" },
+];
+
+const usefulLinks = [
+  { label: "Contact Us", href: "/contact-us" },
+  { label: "Get Instant Quote", href: "#contact" },
+  { label: "Terms & Conditions", href: "#" },
+  { label: "Privacy Policy", href: "#" },
 ];
 
 const socialLinks = [
@@ -44,12 +44,14 @@ const socialLinks = [
   },
 ];
 
+const MAP_EMBED_SRC = `https://www.google.com/maps?q=${encodeURIComponent(CONTACT_INFO.mapQuery)}&output=embed`;
+
 export default function Footer() {
   return (
-    <footer className="relative text-white bg-[#140b22]">
+    <footer className="footer-premium-fonts relative text-white bg-[#140b22]">
       {/* Purple night gradient + subtle patterns */}
       <div
-        className="pointer-events-none absolute inset-0"
+        className="pointer-events-none absolute inset-0 z-0"
         aria-hidden
         style={{
           background:
@@ -58,7 +60,7 @@ export default function Footer() {
       />
       {/* Dot/grid pattern */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.06]"
+        className="pointer-events-none absolute inset-0 z-0 opacity-[0.06]"
         aria-hidden
         style={{
           backgroundImage:
@@ -67,45 +69,74 @@ export default function Footer() {
           mixBlendMode: "soft-light",
         }}
       />
-      <div className="relative z-10 mx-auto max-w-[1440px] px-6 py-12">
-        {/* Top section – columns */}
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-10">
-          {/* Column 1: Social + Contact */}
-          <div className="col-span-2 flex flex-col gap-6 md:col-span-1">
-            <div className="flex gap-4">
+
+      <div className="relative z-10 mx-auto max-w-[1440px] px-5 py-10 sm:px-6 md:py-11 lg:px-8">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-10 lg:grid-cols-12 lg:gap-x-6 xl:gap-x-8">
+          {/* Column 1 — Brand */}
+          <div className="sm:col-span-2 lg:col-span-3">
+            <h2 className="footer-brand-title text-xl font-semibold tracking-tight text-white md:text-2xl">
+              {CONTACT_INFO.company}
+            </h2>
+            <p className="footer-brand-body mt-3 max-w-sm text-sm leading-relaxed text-white/80">
+              From packing to delivery. Our team handles your move with care so you can
+              focus on what&apos;s next.
+            </p>
+
+            <div className="footer-social-row mt-5 flex flex-wrap gap-3">
               {socialLinks.map(({ icon: Icon, href, label, bgColor }) => (
                 <a
                   key={label}
                   href={href}
                   aria-label={label}
-                  className={`flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white shadow-lg shadow-black/30 transition-transform hover:scale-105 hover:border-white ${bgColor}`}
+                  className={`footer-social-link flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white shadow-lg shadow-black/30 transition-transform hover:scale-105 hover:border-white ${bgColor}`}
                 >
                   <Icon className="h-5 w-5" />
                 </a>
               ))}
             </div>
-            <div className="space-y-2 text-sm text-white/90">
-              <p>Kings Moving Services</p>
-              <p>6424 E. Greenway Pkwy, Suite 100</p>
-              <p>Scottsdale, AZ 85254</p>
-              <p>"Where You Are Treated Like Royalty"</p>
-              <p>
-                <a href="mailto:info@kingsmovingservices.com" className="hover:underline">
-                  info@kingsmovingservices.com
+
+            <div className="footer-brand-body mt-6 space-y-2 text-sm text-white/90">
+              <p>{CONTACT_INFO.addressLine1}</p>
+              <p>{CONTACT_INFO.addressLine2}</p>
+              <p>&quot;Where You Are Treated Like Royalty&quot;</p>
+            </div>
+
+            <p>
+                <a href={CONTACT_INFO.emailHref} className="hover:underline">
+                  {CONTACT_INFO.email}
                 </a>
               </p>
               <p>
-                <a href="tel:+18889981004" className="hover:underline">
-                  Office: 888-998-1004 Ext. 101
+                <a href={CONTACT_INFO.officePhoneHref} className="hover:underline">
+                  Office: {CONTACT_INFO.officePhone}
                 </a>
               </p>
               <p>
-                <a href="tel:+14804471200" className="hover:underline">
-                  Direct: 480-447-1200
+                <a href={CONTACT_INFO.directPhoneHref} className="hover:underline">
+                  Direct: {CONTACT_INFO.directPhone}
                 </a>
               </p>
-              {/* Trust / quality badges */}
-              <div className="mt-3 flex flex-wrap gap-2">
+          </div>
+
+          {/* Column 2 — Our Services + contact / trust (second half) */}
+          <div className="lg:col-span-2">
+            <h3 className="footer-col-heading mb-3 text-base font-semibold text-white/90 md:mb-4">
+              Our Services
+            </h3>
+            <ul className="space-y-2.5 text-sm text-white/80">
+              {serviceLinks.map(({ label, href }) => (
+                <li key={label}>
+                  <Link href={href} className="transition-colors hover:text-white">
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            <div className="footer-brand-body mt-8 space-y-2 text-sm text-white/90">
+            
+
+              <div className=" flex flex-wrap gap-2">
                 <span className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/20 px-3 py-1 text-[11px] font-medium text-primary">
                   <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                   Licensed &amp; Insured
@@ -116,7 +147,7 @@ export default function Footer() {
                 </span>
                 <span className="inline-flex items-center gap-2 rounded-full border border-primary/50 bg-primary/20 px-3 py-1 text-[11px] font-medium text-primary">
                   <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-                  100's of Moves Completed
+                  100&apos;s of Moves Completed
                 </span>
               </div>
               <p className="text-xs text-white/75">
@@ -125,13 +156,13 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 2: Menu */}
-          <div>
-            <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-white/90">
-              Menu
+          {/* Column 3 — About */}
+          <div className="lg:col-span-2">
+            <h3 className="footer-col-heading mb-3 text-base font-semibold text-white/90 md:mb-4">
+              About Us
             </h3>
-            <ul className="space-y-2 text-sm text-white/80">
-              {menuLinks.map(({ label, href }) => (
+            <ul className="space-y-2.5 text-sm text-white/80">
+              {aboutLinks.map(({ label, href }) => (
                 <li key={label}>
                   <Link href={href} className="transition-colors hover:text-white">
                     {label}
@@ -141,13 +172,13 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Services */}
-          <div>
-            <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-white/90">
-              Services
+          {/* Column 4 — Useful links */}
+          <div className="lg:col-span-2">
+            <h3 className="footer-col-heading mb-3 text-base font-semibold text-white/90 md:mb-4">
+              Useful Links
             </h3>
-            <ul className="space-y-2 text-sm text-white/80">
-              {serviceLinks.map(({ label, href }) => (
+            <ul className="space-y-2.5 text-sm text-white/80">
+              {usefulLinks.map(({ label, href }) => (
                 <li key={label}>
                   <Link href={href} className="transition-colors hover:text-white">
                     {label}
@@ -157,43 +188,43 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 4: More */}
-          <div>
-            <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-white/90">
-              More
+          {/* Column 5 — Location + map */}
+          <div className="sm:col-span-2 lg:col-span-3">
+            <h3 className="footer-col-heading mb-3 text-base font-semibold text-white/90 md:mb-4">
+              Location
             </h3>
-            <ul className="space-y-2 text-sm text-white/80">
-              {moreLinks.map(({ label, href }) => (
-                <li key={label}>
-                  <Link href={href} className="transition-colors hover:text-white">
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <div className="overflow-hidden rounded-xl border border-white/20 bg-black/20 shadow-lg shadow-black/20">
+              <iframe
+                title={`${CONTACT_INFO.company} on Google Maps`}
+                src={MAP_EMBED_SRC}
+                className="h-[180px] w-full border-0 sm:h-[200px]"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+            <p className="footer-map-caption mt-3 text-sm leading-relaxed text-white/80">
+              {CONTACT_INFO.addressLine1}, {CONTACT_INFO.addressLine2}
+            </p>
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CONTACT_INFO.mapQuery)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-map-caption mt-2 inline-flex text-sm font-semibold text-accent underline-offset-4 hover:underline"
+            >
+              Open in Google Maps
+            </a>
           </div>
         </div>
 
-        {/* Divider */}
         <div className="my-8 border-t border-white/20" />
 
-        {/* Bottom section */}
-        <div className="flex flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
-          <p className="max-w-md text-sm leading-relaxed text-white/80">
-            From packing to delivery. Our team handles your move with care so you
-            can focus on what&apos;s next.
-          </p>
-          <div className="flex w-full flex-wrap items-center justify-end gap-4 md:w-auto">
-            <Link
-              href="#"
-              className="text-sm text-white/80 underline-offset-2 hover:underline"
-            >
+        <div className="footer-bottom-bar flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-white/75">© {new Date().getFullYear()} {CONTACT_INFO.company}</p>
+          <div className="flex flex-wrap items-center gap-4 sm:justify-end">
+            <Link href="#" className="text-sm text-white/80 underline-offset-2 hover:underline">
               Terms & Conditions
             </Link>
-            <Link
-              href="#"
-              className="text-sm text-white/80 underline-offset-2 hover:underline"
-            >
+            <Link href="#" className="text-sm text-white/80 underline-offset-2 hover:underline">
               Privacy Policy
             </Link>
             <Link
